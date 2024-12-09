@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню ресторана</title>
+    <style>
+        /* Общий стиль */
+        body {
+            font-family: 'Garamond', serif;
+            background-color: #f8f1e9;
+            margin: 0;
+            padding: 30px;
+            color: #3a3a3a;
+        }
+
+        /* Контейнер меню */
+        .menu-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Заголовок */
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            color: #7b4b1e;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Категории */
+        .category-title {
+            font-size: 1.5em;
+            text-transform: uppercase;
+            color: #7b4b1e;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            text-align: left;
+            letter-spacing: 1px;
+        }
+
+        /* Блюда */
+        .dish {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .dish:last-child {
+            border-bottom: none;
+        }
+
+        .dish-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .dish-desc {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Кнопка */
+        .recipe-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #7b4b1e;
+            border: none;
+            border-radius: 20px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-button:hover {
+            background-color: #a5673f;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+    <h1>Меню</h1>
+    
+<!-- Категория "Завтраки" -->
+<h2 class="category-title">Завтраки</h2>
+<div class="dish">
+    <div>
+        <p class="dish-name">Вафли из протеинового пудинга</p>
+        <p class="dish-desc">Полезные вафли с высоким содержанием белка, идеально для утра.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C_r-MBwub-z/?igsh=MTNhM20yMmRyaDhkMQ==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Вафли из протеинового йогурта</p>
+        <p class="dish-desc">Легкие вафли на основе йогурта для вашего здорового завтрака.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C-Hht3MOvuX/?igsh=MTdjaXVrMzB4c2VmZw==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Тосты с а-ля тартаром</p>
+        <p class="dish-desc">Румяные тосты с нежным тартаром — элегантный и вкусный завтрак.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/DB3nl5JtW_T/?igsh=dGo5OGNmbnIxM3Zn" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Тосты с авокадо и консервированным тунцом</p>
+        <p class="dish-desc">Сытный и полезный завтрак с кремовым авокадо и нежным тунцом.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C-o6FAiNqRT/?igsh=MXRoNnY0bHZ1Z3ljbA==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Тосты с красным луком, авокадо и яйцом</p>
+        <p class="dish-desc">Хрустящие тосты с насыщенным вкусом авокадо и красного лука.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/DCecy1MMQW5/?igsh=bHlpMXM5a3cxd2Jr" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Творожный хачапури по-аджарски</p>
+        <p class="dish-desc">Ароматный хачапури с творожной начинкой и традиционным оформлением.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/DASyLtTM3Jd/?igsh=MWhmZ2JhcG1kcDg5ZQ==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+
+<!-- Категория "Салаты" -->
+<h2 class="category-title">Салаты</h2>
+<div class="dish">
+    <div>
+        <p class="dish-name">Салат с кальмаром</p>
+        <p class="dish-desc">Лёгкий салат с кальмарами и пикантной заправкой.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C_QfvWZtahN/?igsh=MWhvM2pmdWwyY2wydw==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Салат с курицей и бобами</p>
+        <p class="dish-desc">Сытный салат с курицей, бобами и нежным соусом.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/DANdmJGqzVV/?igsh=MWJscnh5cmZhZDd0OQ==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Салат с курицей и грибами</p>
+        <p class="dish-desc">Нежный салат с кусочками курицы, грибами и свежими овощами.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C8CJpUTtDSu/?igsh=MWw1OWZzemQyeDBiNQ==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Салат с креветками и манго</p>
+        <p class="dish-desc">Освежающий салат с тропическим манго и креветками.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/DBnf0Awqul-/?igsh=a2s1ZGYzaDRjYjF3" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Мексиканский салат с курицей</p>
+        <p class="dish-desc">Яркий и сытный салат с мексиканскими специями и курицей.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C_TQH8WtQBd/?igsh=MTFmcWFwM3E3bnFrbQ==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Салат с авокадо и моцареллой</p>
+        <p class="dish-desc">Изящный салат с кремовым авокадо и мягкой моцареллой.</p>
+    </div>
+    <a href="https://www.instagram.com/reel/ChG-wzYjkJe/?igsh=MXh5ODE5ZnA1dWxiNw==" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+
+<!-- Категория "Супы" -->
+<h2 class="category-title">Супы</h2>
+<div class="dish">
+    <div>
+        <p class="dish-name">Крем-суп из шампиньонов</p>
+        <p class="dish-desc">Нежный крем-суп с насыщенным грибным вкусом.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/gribnoy-krem-sup-126247" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Крем-суп из тыквы</p>
+        <p class="dish-desc">Ароматный тыквенный суп с нежной текстурой.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/krem-sup-iz-tikvi-16754" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Сырный суп по-французски с курицей</p>
+        <p class="dish-desc">Густой и ароматный суп с курицей и сыром.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/sirnij-sup-po-francuzski-s-kuricej-32614" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Финский сливочный суп с лососем</p>
+        <p class="dish-desc">Традиционный финский суп с лососем в сливочном бульоне.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/finskij-slivochnij-sup-s-lososem-lohikejtto-32776" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Том-ям</p>
+        <p class="dish-desc">Классический тайский суп с кисло-острым вкусом.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/tom-yam-140516" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Мисо-суп</p>
+        <p class="dish-desc">Японский суп с тофу и водорослями, идеальный для лёгкого обеда.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/miso-sup-152543" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Рамен</p>
+        <p class="dish-desc">Традиционный японский суп с лапшой и насыщенным бульоном.</p>
+    </div>
+    <a href="https://eda.ru/recepty/supy/ramen-114793" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+<div class="dish">
+    <div>
+        <p class="dish-name">Рамен с яйцом и сыром</p>
+        <p class="dish-desc">Уникальная вариация рамена с добавлением сыра и яйца.</p>
+    </div>
+    <a href="https://lifehacker.ru/recipe/ramen-s-yajcom-i-syrom/" class="recipe-button" target="_blank">Рецепт</a>
+</div>
+
+<!-- Категория "Основные блюда" -->
+<h2 class="category-title">Основные блюда</h2>
+    <div class="dish">
+        <div>
+            <p class="dish-name">Фунчоза с креветками</p>
+            <p class="dish-desc">Рисовая лапша с креветками и овощами в пикантном соусе.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/C8JejpgOEZX/?igsh=ZzBnajBiMDc5ZjB6" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Фузилли с лососем/креветками/курицей</p>
+            <p class="dish-desc">Итальянская паста с выбором нежного лосося, креветок или курицы.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DAaN8bfNrws/?igsh=MTA5ejVud2VtYThhbA==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Конвертики из курицы и творожного сыра</p>
+            <p class="dish-desc">Сочные куриные конвертики с нежной начинкой из творожного сыра.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DB0c6NqsEPb/?igsh=MjFmdmNrM3B4ZGYw" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Стейк лосося со сливочным соусом</p>
+            <p class="dish-desc">Нежный стейк из лосося, поданный с ароматным сливочным соусом.</p>
+        </div>
+        <a href="https://www.instagram.com/p/C_QQK-iNlZC/?igsh=MXBybDNhZWJoemZ1Zw==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Куриная грудка с овощами</p>
+            <p class="dish-desc">Здоровое и вкусное блюдо: куриная грудка с обжаренными овощами.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DBto-DJuKae/?igsh=NXh0cjhtdDk0ZjNq" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Конвертики из тортильи с начинкой на выбор</p>
+            <p class="dish-desc">Лёгкое и удобное блюдо с разнообразными начинками на ваш вкус.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/C8H-YKFCb8E/?igsh=MWlhNWlpdjBkMzYxdQ==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Лосось с овощами в духовке</p>
+            <p class="dish-desc">Запечённый лосось с овощами в пряных травах.</p>
+        </div>
+        <a href="https://www.instagram.com/p/DCJQrhQzmY9/?igsh=MTR1MjJoZXlkY2pmcw==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Кесадилья с начинкой на выбор</p>
+            <p class="dish-desc">Хрустящие лепёшки с сырной начинкой и добавками на ваш выбор.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DAgPWBrNvZx/?igsh=MTdpbGFycmsxOW0zcA==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Острая корейская лапша кочуджан</p>
+            <p class="dish-desc">Пряная лапша с пикантным соусом кочуджан и чесноком.</p>
+        </div>
+        <a href="https://aaronandclaire.com/gochujang-garlic-noodles-recipe/" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Куриная грудка в сливочном соусе</p>
+            <p class="dish-desc">Куриное филе в нежном сливочном соусе с пряностями.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/C_u6huhIggH/?igsh=MXdxeWRzdTF1b3l5NA==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Тако с фаршем</p>
+            <p class="dish-desc">Мексиканские тако с сочным мясным фаршем и специями.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DBdFSB7KuSY/?igsh=MXZ6NHk4ZTAxNmQ0eQ==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Киш с лососем и брокколи</p>
+            <p class="dish-desc">Французский пирог с лососем, брокколи и сливочной заливкой.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/DB6mDinNGYW/?igsh=MXRqNHQ1MTFlMmpnMw==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Рис с курицей в кисло-сладком соусе</p>
+            <p class="dish-desc">Ароматное азиатское блюдо с рисом, курицей и кисло-сладким соусом.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/C94GkDyt5fm/?igsh=MXJpdDFvZW9xamtncw==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+
+    <div class="dish">
+        <div>
+            <p class="dish-name">Курица в духовке</p>
+            <p class="dish-desc">Классическое запечённое блюдо с ароматными специями.</p>
+        </div>
+        <a href="https://www.instagram.com/reel/CY1xxkuD9XP/?igsh=MW81dmwybDdjZWZ2ag==" class="recipe-button" target="_blank">Рецепт</a>
+    </div>
+</div>
