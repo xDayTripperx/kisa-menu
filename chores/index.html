@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Домашние дела - Статистика</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Подключение плагина -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #ccc;
+      overflow-x: auto;
+      background: #f4f4f4;
+    }
+    .tabs button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+    }
+    .tabs button.active {
+      background: #007BFF;
+      color: white;
+    }
+    .content {
+      padding: 20px;
+    }
+    .chart-container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    .total-tasks {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs" id="tabs"></div>
+  <div class="content" id="content"></div>
+
+  <script>
+    // Конфигурация API
+    const API_URL = 'https://ru.yougile.com/api-v2/tasks';
+    const API_KEY = '0o4tQ08hWu9KtB7KfKITFvI0Le55+wy8PFnIAmrssjNrCKg5G9TX3DVIXY8C3ErE';
+
+    const columns = {
+      Богдан: '432007c3-e800-4ecc-ab8c-9da5b0918ad9',
+      Кристина: '267b1688-b8df-4f6e-838c-46d75fcb9174',
+    };
+
+    // Функция для получения задач из одной колонки
+    async function fetchTasks(columnId) {
+      try {
+        const response = await fetch(`${API_URL}?limit=1000&columnId=${columnId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        return data.content || [];
+      } catch (error) {
+        console.error(`Ошибка при загрузке данных из колонки ${columnId}:`, error);
+        return [];
+      }
+    }
+
+    // Группировка задач по регулярным названиям
+    function groupTasksByTitle(tasks) {
+      const grouped = {};
+      tasks.forEach((task) => {
+        const baseTitle = task.title.replace(/\s\(\d+\)$/, '');
+        if (!grouped[baseTitle]) {
+          grouped[baseTitle] = [];
+        }
+        grouped[baseTitle].push(task);
+      });
+      return grouped;
+    }
+
+    // Основная функция для сбора статистики и создания диаграмм
+    async function createTabsAndCharts() {
+      const results = {};
+      for (const [name, columnId] of Object.entries(columns)) {
+        const tasks = await fetchTasks(columnId);
+        const completedTasks = tasks.filter((task) => task.completed);
+        results[name] = groupTasksByTitle(completedTasks);
+      }
+
+      const tabsContainer = document.getElementById('tabs');
+      const contentContainer = document.getElementById('content');
+
+      const allTitles = new Set([
+        ...Object.keys(results.Богдан || {}),
+        ...Object.keys(results.Кристина || {}),
+      ]);
+
+      // Создаём вкладку "Все задачи"
+      const allTasksTabButton = document.createElement('button');
+      allTasksTabButton.textContent = 'Все задачи';
+      allTasksTabButton.classList.add('active'); // Активируем вкладку по умолчанию
+
+      // Обработчик для вкладки "Все задачи"
+      allTasksTabButton.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+        allTasksTabButton.classList.add('active');
+
+        document.querySelectorAll('.chart-container').forEach(container => {
+          container.style.display = 'none'; // Скрываем все контейнеры с диаграммами
+        });
+        
+        document.getElementById('chart-all').style.display = 'block'; // Показываем диаграмму для "Все задачи"
+      });
+
+      tabsContainer.appendChild(allTasksTabButton);
+
+      // Создаём контейнер для диаграммы "Все задачи"
+      const allTasksChartContainer = document.createElement('div');
+      allTasksChartContainer.id = 'chart-all';
+      allTasksChartContainer.classList.add('chart-container');
+      contentContainer.appendChild(allTasksChartContainer);
+
+      // Создаём canvas для диаграммы "Все задачи"
+      const allTasksCanvas = document.createElement('canvas');
+      allTasksChartContainer.appendChild(allTasksCanvas);
+
+      // Подсчитаем все выполненные задачи для Богдана и Кристины
+      let totalБогданTasks = 0;
+      let totalКристинаTasks = 0;
+      allTitles.forEach((title) => {
+        totalБогданTasks += results.Богдан[title]?.length || 0;
+        totalКристинаTasks += results.Кристина[title]?.length || 0;
+      });
+      const totalTasks = totalБогданTasks + totalКристинаTasks;
+
+      // Добавляем общее количество выполненных задач
+      const allTasksTotalLabel = document.createElement('div');
+      allTasksTotalLabel.classList.add('total-tasks');
+      allTasksTotalLabel.textContent = `Всего выполнено: ${totalTasks}`;
+      allTasksChartContainer.appendChild(allTasksTotalLabel);
+
+      // Рисуем диаграмму для "Все задачи"
+      new Chart(allTasksCanvas, {
+        type: 'pie',
+        data: {
+          labels: ['Богдан', 'Кристина'],
+          datasets: [{
+            data: [totalБогданTasks, totalКристинаTasks],
+            backgroundColor: ['#007BFF', '#FFC0CB'],
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.raw} задач`;
+                }
+              }
+            },
+            datalabels: {
+              formatter: (value, context) => `${value}`,
+              color: '#fff',
+              font: {
+                weight: 'bold',
+                size: 14,
+              }
+            }
+          }
+        },
+        plugins: [ChartDataLabels] // Подключаем подписи к секциям
+      });
+
+      // Создаём вкладки и диаграммы для регулярных задач
+      allTitles.forEach((title, index) => {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = title;
+
+        // Добавляем обработчик клика для переключения вкладок
+        tabButton.addEventListener('click', () => {
+          document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+          tabButton.classList.add('active');
+
+          document.querySelectorAll('.chart-container').forEach(container => {
+            container.style.display = 'none'; // Скрываем все контейнеры с диаграммами
+          });
+          
+          document.getElementById(`chart-${index}`).style.display = 'block'; // Показываем нужную диаграмму
+        });
+        
+        tabsContainer.appendChild(tabButton);
+
+        const chartContainer = document.createElement('div');
+        chartContainer.id = `chart-${index}`;
+        chartContainer.classList.add('chart-container');
+        contentContainer.appendChild(chartContainer);
+
+        const canvas = document.createElement('canvas');
+        chartContainer.appendChild(canvas);
+
+        const богданTasks = results.Богдан[title]?.length || 0;
+        const кристинаTasks = results.Кристина[title]?.length || 0;
+        const totalTasksForTitle = богданTasks + кристинаTasks;
+
+        const totalLabel = document.createElement('div');
+        totalLabel.classList.add('total-tasks');
+        totalLabel.textContent = `Всего выполнено: ${totalTasksForTitle}`;
+        chartContainer.appendChild(totalLabel);
+
+        new Chart(canvas, {
+          type: 'pie',
+          data: {
+            labels: ['Богдан', 'Кристина'],
+            datasets: [{
+              data: [богданTasks, кристинаTasks],
+              backgroundColor: ['#007BFF', '#FFC0CB'],
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.label}: ${context.raw} задач`;
+                  }
+                }
+              },
+              datalabels: {
+                formatter: (value, context) => `${value}`,
+                color: '#fff',
+                font: {
+                  weight: 'bold',
+                  size: 14,
+                }
+              }
+            }
+          },
+          plugins: [ChartDataLabels]
+        });
+      });
+
+      // Скрываем все диаграммы, кроме "Все задачи"
+      document.querySelectorAll('.chart-container').forEach(container => {
+        container.style.display = 'none';
+      });
+
+      document.getElementById('chart-all').style.display = 'block'; // Показываем диаграмму "Все задачи"
+    }
+
+    // Запуск
+    createTabsAndCharts();
+  </script>
+</body>
+</html>
